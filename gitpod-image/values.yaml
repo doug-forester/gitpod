@@ -1,0 +1,32 @@
+# Copyright (c) 2020 Gitpod GmbH. All rights reserved.
+# Licensed under the MIT License. See License-MIT.txt in the project root for license information.
+
+hostname: $DOMAIN
+
+components:
+  wsDaemon:
+    containerRuntime:
+      containerd:
+        socket: /run/k3s/containerd/containerd.sock
+      nodeRoots:
+      - /var/lib
+      - /run/k3s/containerd/io.containerd.runtime.v1.linux
+      - /run/k3s/containerd/io.containerd.runtime.v2.task/k8s.io
+  workspace:
+    template:
+      spec:
+        dnsConfig: null
+        dnsPolicy: ClusterFirst
+  imageBuilder:
+    dindMtu: 1450
+
+docker-registry:
+  persistence:
+    enabled: true
+    existingClaim: docker-registry
+minio:
+  persistence:
+    existingClaim: minio
+mysql:
+  persistence:
+    existingClaim: mysql
