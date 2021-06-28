@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  gitpod:
+    image: eu.gcr.io/gitpod-core-dev/build/gitpod-k3s:${VERSION:-latest}
+    privileged: true
+    volumes:
+      - ./values:/values
+      # - ./certs:/certs
+    ports:
+      - 443:443
+      - 80:80
+    environment:
+      - BASEDOMAIN=azurewebsites.net
+    minio:
+      accessKey: 18203e30bc980d103f365a76ca4d91b7 #md5
+      secretKey: 34db0c55f9e3d572493826141c1d0f9276aa4caaf347b8e76e72bc52d1d38f5b #sh256  
